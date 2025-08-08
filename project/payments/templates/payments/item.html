@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ item.name }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>Price: ${{ item.price }}</p>
+    
+    <button id="buy-button">Купить сейчас</button>
+    <button id="add-to-order">Добавить в заказ</button>
+    <a href="{% url 'current_order' %}">Мой заказ</a>
+    
+    <script>
+        const stripe = Stripe('{{ stripe_public_key }}');
+        
+        document.getElementById('buy-button').addEventListener('click', function() {
+            fetch('{% url "buy_item" item.id %}')
+                .then(response => response.json())
+                .then(session => stripe.redirectToCheckout({ sessionId: session.session_id }))
+                .catch(error => console.error('Error:', error));
+        });
+        
+        document.getElementById('add-to-order').addEventListener('click', function() {
+            fetch('{% url "add_to_order" item.id %}')
+                .then(() => window.location.reload())
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
