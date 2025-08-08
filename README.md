@@ -71,9 +71,9 @@ pip install -r requirements.txt
 ```
 DEBUG=True
 ALLOWED_HOSTS=*
-SECRET_KEY=ваш-секретный-ключ
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLIC_KEY=pk_test_...
+SECRET_KEY=django-insecure-ixj++m6xf@b1@giupuhe4$5+ll8rst@0r5!g34_j$efe#*6tz0
+STRIPE_PUBLIC_KEY=pk_test_51Rt5mjRyknxvpudx0N4k5b3IBD3LZrVsYWaeCQGup1LHweErMRyvnkQznPh7YVwK1vMkJfEE0OpD7ququNk5EPGF00DlXGjOuy
+STRIPE_SECRET_KEY=sk_test_51Rt5mjRyknxvpudxaweaqNjVV8oNTSWE1wPiYevnUysgsSNmlXtDG1I3QuB1LwcmTRSAggova6spvRQ6QwzzqXgj00A0locDl4
 ```
 
 ### 5. Выполните миграции
