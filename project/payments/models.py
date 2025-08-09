@@ -19,7 +19,6 @@ class Item(models.Model):
 class Discount(models.Model):
     name = models.CharField(max_length=30)
     percent_off = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-    stripe_id = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return f"{self.name} ({self.percent_off}%)"
@@ -27,8 +26,7 @@ class Discount(models.Model):
 
 class Tax(models.Model):
     name = models.CharField(max_length=30)
-    percentage = models.FloatField(validators=[MinValueValidator(0)])
-    stripe_id = models.CharField(max_length=30, blank=True)
+    percentage = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     def __str__(self):
         return f"{self.name} ({self.percentage}%)"

@@ -44,6 +44,8 @@ def buy_item(request, id):
 
 def create_order(request):
     """Создает новый заказ"""
+    if 'order_id' in request.session:
+        return redirect('current_order')
     order = Order.objects.create()
     request.session['order_id'] = order.id
     return order
