@@ -55,10 +55,9 @@ class Order(models.Model):
     def get_total_price(self):
         total = Decimal('0')
         for item in self.items.all():
-            total += item.price  # Суммируем Decimal цены
+            total += item.price
         
         if self.discount:
-            # Конвертируем процент скидки в Decimal перед расчетом
             discount_percent = Decimal(str(self.discount.percent_off)) / Decimal('100')
             total *= (Decimal('1') - discount_percent)
         
@@ -66,7 +65,7 @@ class Order(models.Model):
             tax_percent = Decimal(str(self.tax.percentage)) / Decimal('100')
             total *= (Decimal('1') + tax_percent)
         
-        return total.quantize(Decimal('0.01'))  # Округляем до 2 знаков
+        return total.quantize(Decimal('0.01'))
 
     def __str__(self):
         return f"Order #{self.id}"

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.urls import reverse
 from .models import Item, Order
-from decimal import Decimal
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -110,17 +110,9 @@ def buy_order(request, id):
     
     items_list = ", ".join([item.name for item in order.items.all()])
     items_description = f"Items: {items_list}" if items_list else "Empty order"
-    
+
     subtotal = sum(item.price for item in order.items.all())
-    
-    if order.discount:
-        subtotal *= (1 - Decimal(order.discount.percent_off) / 100)
-    
-    tax_amount = Decimal(0)
-    if order.tax:
-        tax_amount = subtotal * Decimal(order.tax.percentage) / 100
-    
-    total = subtotal + tax_amount
+    total = order.get_total_price()
     
     line_item = {
         'price_data': {
